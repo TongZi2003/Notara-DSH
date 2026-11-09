@@ -1,0 +1,142 @@
+{
+  "nodes": [
+    {
+      "id": "node-overview",
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 520,
+      "height": 260,
+      "color": "4",
+      "text": "# 奇异值分解（SVD）几何直观与推导白板\n\n围绕非方阵算例 $A = \\begin{bmatrix} 3 & 2 \\\\ 2 & 3 \\\\ 2 & -2 \\end{bmatrix} \\in \\mathbb{R}^{3 \\times 2}$，按以下三个递进面板动手推演：\n1. **几何三步曲（`frames`）**：观察单位圆如何经 $V^T \\to \\Sigma \\to U$ 变成三维空间中的椭圆；\n2. **$A^T A$ 构造与正交性推导（普通填空题 + 普通辨析题）**：补齐消元与符号锁定的关键一步；\n3. **手算流程与秩 1 近似误差（`flow` + 普通填空题）**：实算 $\\sigma_1, \\sigma_2$ 与最佳秩 1 近似矩阵 $A_1$。"
+    },
+    {
+      "id": "node-frames-geometry",
+      "type": "text",
+      "x": 0,
+      "y": 300,
+      "width": 560,
+      "height": 540,
+      "color": "5",
+      "text": "## 任务一：SVD 几何三步曲（旋转 — 拉伸 — 旋转）\n\n考察线性变换 $y = A x = U \\Sigma V^T x$ 对二维输入平面 $\\mathbb{R}^2$ 中单位圆 $\\|x\\|_2 = 1$ 的分步作用：\n\n```frames\ntitle 单位圆在 A = U Σ V^T 下的三步几何形变\nframe 第 0 步：输入空间中的单位圆与右奇异基\n在输入空间 R^2 中取单位圆 ||x||_2 = 1，同时标出正交矩阵 V 的两列正交单位向量：\nv_1 = [1/√2, 1/√2]^T（沿 45° 对角线方向）\nv_2 = [1/√2, -1/√2]^T（沿 -45° 对角线方向）\nframe 第 1 步：x' = V^T x（输入空间刚体旋转）\n左乘正交矩阵 V^T（满足 V^T V = I_2），等价于计算 x 在正交基 {v_1, v_2} 下的坐标。\n几何效果：单位圆的半径与形状完全不变，整体旋转 45°，使原来的 v_1、v_2 方向分别对齐到标准坐标轴 e_1 = [1, 0]^T 和 e_2 = [0, 1]^T。\n请先预测：接下来左乘 3×2 对角矩阵 Σ = [[5, 0], [0, 3], [0, 0]]^T，对齐坐标轴后的单位圆会发生什么几何变化？长半轴与短半轴的长度分别是多少？\npredict\nframe 第 2 步：x'' = Σ x'（沿正交坐标轴非均匀拉伸并嵌入三维）\n矩阵 Σ 将第一坐标轴 e_1 方向拉长 σ_1 = 5 倍，将第二坐标轴 e_2 方向拉长 σ_2 = 3 倍，并在第三维补 0。\n几何效果：R^2 中的单位圆被拉伸为 R^3 中 x-y 平面上的标准椭圆，长半轴长为 5，短半轴长为 3。\nframe 第 3 步：y = U x''（输出空间刚体旋转定向）\n左乘 3×3 正交矩阵 U = [u_1, u_2, u_3]，将标准坐标轴 e_1, e_2 旋转到左奇异向量 u_1 = [1/√2, 1/√2, 0]^T 与 u_2 = [1/(3√2), -1/(3√2), 4/(3√2)]^T 的方向。\n几何效果：椭圆保持长半轴 5、短半轴 3 的尺寸不变，在三维空间 R^3 中旋转倾斜到最终平面位置，满足 A v_1 = 5 u_1 且 A v_2 = 3 u_2。\n```"
+    },
+    {
+      "id": "node-blank-derivation",
+      "type": "text",
+      "x": 620,
+      "y": 0,
+      "width": 580,
+      "height": 460,
+      "color": "2",
+      "text": "## 任务二：$A^T A$ 消元推导与左奇异向量构造\n\n请根据已知的矩阵转置法则 $(BCD)^T = D^T C^T B^T$ 与正交矩阵性质 $U^T U = I_m$，补齐以下核心推导的关键跳步：\n\n1. 消去未知正交阵 U：将 A = U Σ V^T 代入 A^T A，利用正交矩阵性质 （待填写：写出 U^T 与 U 的乘积恒等式），化简得到 A^T A = V (Σ^T Σ) V^T。\n2. 奇异值与特征值的对应：上式表明实对称半正定矩阵 A^T A 的特征值 λ_i 与奇异值 σ_i 满足 （待填写：写出 λ_i 与 σ_i 的代数关系），且 V 的列向量 v_i 正是 A^T A 的 （待填写：填写特征向量的正交归一化性质）。\n3. 锁定左奇异向量方向：由映射耦合式 A v_i = σ_i u_i（1 ≤ i ≤ r），直接写出由 v_i 计算左奇异向量 u_i 的公式：u_i = （待填写：用 σ_i、A、v_i 表示）。\n\n请在对话中作答。"
+    },
+    {
+      "id": "node-choice-sign",
+      "type": "text",
+      "x": 620,
+      "y": 490,
+      "width": 580,
+      "height": 350,
+      "color": "3",
+      "text": "## 判据辨析：为什么不能独立求 $A A^T$ 的特征向量直接填入 $U$？\n\n在已经求出 A^T A 的单位正交特征向量 V = [v_1, ..., v_n] 后，确定左奇异向量 u_i（1 ≤ i ≤ r）最稳妥的做法是什么？\n- 直接由公式 u_i = (1 / σ_i) A v_i 计算得出\n- 单独解特征方程 (A A^T - λ_i I) u = 0 任取一组单位特征向量填入 U\n\n请在对话中给出选择及理由。"
+    },
+    {
+      "id": "node-flow-handcalc",
+      "type": "text",
+      "x": 1260,
+      "y": 0,
+      "width": 580,
+      "height": 360,
+      "color": "6",
+      "text": "## 任务三：非方阵 SVD 与秩 $k$ 近似五步手算流\n\n```flow\ndirection right\nS1[1. 选小维算对称阵 A^T A] --> S2[2. 解特征值 λ_i 降序开方得 σ_i]\nS2 --> S3[3. 特征向量单位正交化得 V]\nS3 --> S4[?]\nS4 --> S5[5. 截取前 k 项外积 Σ σ_i u_i v_i^T 得 A_k]\n```"
+    },
+    {
+      "id": "node-blank-example",
+      "type": "text",
+      "x": 1260,
+      "y": 390,
+      "width": 580,
+      "height": 450,
+      "color": "1",
+      "text": "## 算例核验：$3 \\times 2$ 矩阵的 SVD 与最佳秩 1 近似\n\n对 $A = \\begin{bmatrix} 3 & 2 \\\\ 2 & 3 \\\\ 2 & -2 \\end{bmatrix}$，已算得 $A^T A = \\begin{bmatrix} 17 & 8 \\\\ 8 & 17 \\end{bmatrix}$，特征值为 $\\lambda_1 = 25, \\lambda_2 = 9$，$v_1 = \\frac{1}{\\sqrt{2}}\\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix}$，$u_1 = \\frac{1}{\\sqrt{2}}\\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}$。请完成以下核验填空：\n\n1. 该矩阵的两个非零奇异值按降序排列为 σ_1 = （待填写：填写第一奇异值数值），σ_2 = （待填写：填写第二奇异值数值）。\n2. 根据 Eckart-Young 定理，最佳秩 1 近似矩阵的外积表达式为 A_1 = （待填写：用 σ_1、u_1、v_1 表示秩 1 外积） = [[2.5, 2.5], [2.5, 2.5], [0, 0]]。\n3. 秩 1 近似的 Frobenius 范数误差 ||A - A_1||_F 恰好等于被截断的第二奇异值 （待填写：填写误差数值），保留的能量占比为 σ_1^2 / (σ_1^2 + σ_2^2) = （待填写：填写分数或百分比）。\n\n请在对话中作答。"
+    },
+    {
+      "id": "node-file-card1",
+      "type": "file",
+      "file": "卡片/特征值分解的局限与正交基旋转拉伸问题.md",
+      "x": 0,
+      "y": 890,
+      "width": 420,
+      "height": 240
+    },
+    {
+      "id": "node-file-card2",
+      "type": "file",
+      "file": "卡片/奇异值分解SVD的几何意义与构造推导.md",
+      "x": 460,
+      "y": 890,
+      "width": 420,
+      "height": 240
+    },
+    {
+      "id": "node-file-card3",
+      "type": "file",
+      "file": "卡片/由对称阵ATA特征分解求解SVD与秩k近似法.md",
+      "x": 920,
+      "y": 890,
+      "width": 420,
+      "height": 240
+    },
+    {
+      "id": "node-file-card4",
+      "type": "file",
+      "file": "卡片/例题-二阶非方阵的SVD手算与秩1近似误差.md",
+      "x": 1380,
+      "y": 890,
+      "width": 460,
+      "height": 240
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-1",
+      "fromNode": "node-overview",
+      "fromSide": "bottom",
+      "toNode": "node-frames-geometry",
+      "toSide": "top",
+      "label": "1. 建立几何直观"
+    },
+    {
+      "id": "edge-2",
+      "fromNode": "node-frames-geometry",
+      "fromSide": "right",
+      "toNode": "node-blank-derivation",
+      "toSide": "left",
+      "label": "2. 代数消元构造"
+    },
+    {
+      "id": "edge-3",
+      "fromNode": "node-blank-derivation",
+      "fromSide": "bottom",
+      "toNode": "node-choice-sign",
+      "toSide": "top",
+      "label": "符号锁定检验"
+    },
+    {
+      "id": "edge-4",
+      "fromNode": "node-blank-derivation",
+      "fromSide": "right",
+      "toNode": "node-flow-handcalc",
+      "toSide": "left",
+      "label": "3. 提炼五步手算法"
+    },
+    {
+      "id": "edge-5",
+      "fromNode": "node-flow-handcalc",
+      "fromSide": "bottom",
+      "toNode": "node-blank-example",
+      "toSide": "top",
+      "label": "算例与误差核验"
+    }
+  ]
+}

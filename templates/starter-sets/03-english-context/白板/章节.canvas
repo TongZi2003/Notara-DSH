@@ -1,0 +1,67 @@
+{
+  "nodes": [
+    {
+      "id": "aa7bd61c-e8dd-4e88-9d08-de424a2adff1",
+      "type": "text",
+      "text": "## 先读完整材料\n\n本白板为原创虚构材料的辅助练习，无预填答案。下面的局部任务已带线索，不能代替回到 [[01-暂定结论的词义选择|第一段]]、[[02-连接词与两种服务渠道|第二段]]、[[03-推断的范围与因果边界|第三段]] 阅读完整语境。\n\n提交前先进入本学习集课堂；没有课堂可提交时，可在纸上写下理由。参考理解不是学生理解，白板提交不是正式复习。原创范围见 [[06-来源说明|来源说明]]。",
+      "x": 40,
+      "y": 40,
+      "width": 500,
+      "height": 320
+    },
+    {
+      "id": "e2884c82-dac2-4d55-8211-ddacb89f3ad1",
+      "type": "text",
+      "text": "## 选择：证据容许多强的结论\n\n```choice\n原创虚构情境：图书馆只试行了三个温暖干燥的周六，来访者多给好评；尚未了解工作日、冬季及未到访者。团队继续试行，等待更广证据再定永久时间表。结论应为哪种？\n- tentative\n- conclusive\n- irrelevant\n- redundant\nreason required\n```\n\n先解释支持与限制分别在哪里，再回 [[01-暂定结论的词义选择|完整原文]] 核对。",
+      "x": 40,
+      "y": 400,
+      "width": 500,
+      "height": 420
+    },
+    {
+      "id": "8317a4f2-3132-4b43-9a08-f08f06b44be1",
+      "type": "text",
+      "text": "## 补一步：把连接关系说清楚\n\n```blank\n原创虚构情境：线上表格使其使用者登记从六分钟减到两分钟，但部分居民共用手机或需要当面询问，因此组织者仍保留柜台。\n空白句紧接速度改进：____, the group kept the staffed counter open at every event.\n候选：Therefore、Nevertheless、Similarly、Meanwhile。\n最贴合的连接词是 {{ 填写连接词 }}\n它连接的两个命题为 {{ 说明前后关系 }}\n若想改用Therefore，可把前一句改成 {{ 写出一个完整前提 }}\n```\n\n这是提示后的改写，不是原材料新增事实。对照 [[02-连接词与两种服务渠道|完整语境]]。",
+      "x": 580,
+      "y": 40,
+      "width": 600,
+      "height": 430
+    },
+    {
+      "id": "64381763-9c15-4a24-8d63-9e48d9436477",
+      "type": "text",
+      "text": "## 归类：观察与证据边界\n\n```order\n原创传感器试行材料：五分钟持续规则减少了剩余试行日的短促警报，但可能漏掉短时上涨，尚未测试完整强雨季，也未比较洪灾损失。请按原文已说的观察和尚不支持的扩张归类。\n- Brief alerts decreased in the remaining trial days.\n- The sensor was accurate in every weather condition.\n- The project prevented flood damage.\n- The rule might miss a very short rise.\ngroups 材料直接说明 | 证据尚不支持\n```\n\n说明每项的依据，不按关键词机械判断。完整任务见 [[03-推断的范围与因果边界|第三段]]，归纳见 [[04-概念-证据范围与候选比较|概念卡]]，返回 [[00-导读|导读]]。",
+      "x": 580,
+      "y": 510,
+      "width": 600,
+      "height": 430
+    },
+    {
+      "id": "address-context-choice",
+      "type": "text",
+      "text": "## 微语境：address处理什么\n\n完整三句与各候选比较见 [[05-address处理顾虑]]。\n\n```choice\n原创虚构三句：Some families said they could not check the bus app at home because they had no internet connection. To ____ this concern, the school kept a printed timetable beside the gate. The notice also said that the app would remain available for families who could use it.\n- address\n- dismiss\n- conceal\n- create\nreason required\n```",
+      "x": 40,
+      "y": 1080,
+      "width": 560,
+      "height": 490
+    },
+    {
+      "id": "phrase-context-order",
+      "type": "text",
+      "text": "## 跨篇比较：语块与客观动作\n\n```order\n将语块放到有原文动作支持的场景里；理由回题卡核对。\n- address this concern\n- address the audience\n- charge visitors £2\n- take charge of preparations\ngroups 纸质表回应无网络顾虑 | 麦克风前讲解 | 可选购买纸质指南 | 分配任务并检查\n```\n\n见 [[熟词僻义与语块]]；归类成功不表示覆盖这些词的所有义项。",
+      "x": 640,
+      "y": 1080,
+      "width": 560,
+      "height": 450
+    }
+  ],
+  "edges": [
+    {
+      "id": "chapter-03-english-context",
+      "fromNode": "address-context-choice",
+      "toNode": "phrase-context-order",
+      "label": "比较与续接",
+      "toEnd": "arrow"
+    }
+  ]
+}

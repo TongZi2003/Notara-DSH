@@ -1,0 +1,65 @@
+{
+  "name": "@oh-my-student/plugin-calendar",
+  "version": "0.1.2",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./dist/client.js",
+    "./model": "./model.js",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "model.js",
+    "reschedule.js",
+    "remote.js",
+    "src",
+    "dist",
+    "README.md",
+    "LICENSE",
+    "COPYRIGHT",
+    "THIRD_PARTY_NOTICES.md",
+    "locale"
+  ],
+  "engines": {
+    "node": ">=24",
+    "dsh": "0.2.1-rc.4"
+  },
+  "dependencies": {
+    "@oh-my-student/plugin-vault-sqlite": "0.1.2",
+    "@oh-my-student/plugin-vault-views": "0.1.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-typert-protocol": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-api-remotes": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-client-ui-primitives": "0.2.1-rc.4",
+    "react": "18.3.1"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@oh-my-student/plugin-vault-sqlite",
+        "@oh-my-student/plugin-vault-views",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-ui-primitives"
+      ]
+    }
+  },
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TongZi2003/Notara-DSH.git",
+    "directory": "plugins/calendar"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

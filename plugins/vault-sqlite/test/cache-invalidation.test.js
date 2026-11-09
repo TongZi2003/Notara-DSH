@@ -1,0 +1,30 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import {mkdtempSync,mkdirSync,writeFileSync,rmSync} from 'node:fs';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {createVaultStore} from '../vault-indexer.js';
+
+test('missing diary and decimal link names do not invalidate an unchanged projection', async t => {
+  const root=mkdtempSync(join(tmpdir(),'notara-cache-')),cachePath=join(root,'cache.sqlite');
+  mkdirSync(join(root,'卡片'));mkdirSync(join(root,'路线'));mkdirSync(join(root,'日记'));
+  writeFileSync(join(root,'卡片/ln1.1.md'),'---\ntype: concept\n---\n# ln1.1\n');
+  writeFileSync(join(root,'卡片/例子.md'),'---\ntype: exercise\ntags: ["ln1.1"]\n---\n# 例子\n');
+  writeFileSync(join(root,'路线/路线.md'),'---\ntype: route\n---\n# 路线\n[[卡片/ln1.1]]\n');
+  const store=createVaultStore({root,cachePath,now:()=>new Date('2026-11-05T12:00:00+08:00')}),audit=new DatabaseSync(cachePath);
+  t.after(async()=>{audit.close();await store.close();rmSync(root,{recursive:true,force:true});});
+  await store.startWatching();store.graph({});
+  const version=()=>audit.prepare('PRAGMA data_version').get().data_version;
+  const warm=version();
+  store.update('日记/从未存在.md');store.graph({});
+  assert.equal(version(),warm,'a missing unindexed path is a no-op');
+  store.homeRecommendations();store.graph({});
+  assert.equal(version(),warm,'missing today and a decimal filename must not rebuild knowledge_tags');
+  writeFileSync(join(root,'卡片/ln1.1.md'),'---\ntype: concept\n---\n# 小数文件名已更新\n');
+  store.homeRecommendations();
+  assert.equal(store.query({paths:['卡片/ln1.1.md']}).documents[0].title,'小数文件名已更新','home sync resolves a decimal link before the watcher catches up');
+  const before=store.read({path:'卡片/ln1.1.md'});
+  store.save({path:before.path,content:before.content+'\n真实修改\n',expectedRevision:before.revision});
+  assert.notEqual(store.graph({}).nodes.find(n=>n.path===before.path).revision,before.revision,'real changes still invalidate');
+});

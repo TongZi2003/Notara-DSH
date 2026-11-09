@@ -1,0 +1,52 @@
+.nc-calendar>header.nc-toolbar { flex:none; box-sizing:border-box; height:var(--notara-toolbar-height,38px); min-height:var(--notara-toolbar-height,38px); max-height:var(--notara-toolbar-height,38px); padding:4px 12px 5px; flex-wrap:nowrap; gap:8px; }
+.nc-toolbar>strong,.nc-toolbar>.nc-subtitle,.nc-selected-date { white-space:nowrap; }
+.nc-selected-date{margin-left:10px;font-weight:500;font-variant-numeric:tabular-nums}
+.nc-toolbar nav{display:flex;gap:0}
+.nc-calendar .nc-toolbar nav button{font-size:20px;padding:0 7px}
+.nc-toolbar>.nc-subtitle { overflow:hidden; text-overflow:ellipsis; min-width:0; }
+.nc-calendar .nc-toolbar button { flex:none; height:28px; min-height:0; box-sizing:border-box; padding:3px 7px; font:13px/20px var(--claude-font-sans,system-ui); }
+@container(max-width:380px){.nc-toolbar>strong,.nc-toolbar>svg{display:none}.nc-selected-date{margin-left:0}.nc-calendar>header.nc-toolbar{gap:4px}}
+.nc-agenda>section{margin:0;padding:20px 0}
+.nc-agenda>section:first-child{padding-top:0}
+.nc-agenda>section+section{border-top:1px solid var(--dsw-alias-border-l1)}
+.nc-agenda .nc-agenda-item{display:grid;grid-template-columns:16px minmax(0,1fr);align-items:start;gap:8px;padding:10px 0;border:0}
+.nc-agenda .nc-agenda-item>input{grid-column:1;grid-row:1;width:14px;height:14px;margin:5px 0 0}
+.nc-agenda .nc-item-body{grid-column:2;min-width:0}
+.nc-agenda .nc-item-heading{display:flex;align-items:flex-start;gap:10px}
+.nc-agenda .nc-item-text p{margin:0}
+.nc-agenda .nc-item-text{font-size:14px;line-height:1.65;min-width:0;overflow-wrap:anywhere}
+.nc-calendar .nc-item-text .nv-vault-markdown{padding:0;margin:0;max-width:none;font-family:var(--claude-font-sans,system-ui);font-size:14px;line-height:1.65}
+.nc-item-text .nv-vault-markdown section{margin:0}
+.nc-agenda .nc-item-text .katex-display{margin:6px 0;overflow-x:auto;overflow-y:hidden}
+.nc-agenda .nc-item-meta{display:flex;align-items:baseline;flex-wrap:wrap;gap:3px 7px;margin-top:4px;color:var(--dsw-alias-label-secondary);font-size:12px}
+.nc-calendar .nc-source-link{font-size:12px;color:var(--dsw-alias-label-secondary)}
+.nc-agenda li .nc-item-actions{display:flex;align-items:center;flex:0 0 auto;gap:2px;transition:opacity 120ms ease-out}
+.nc-calendar .nc-item-actions button{height:25px;padding:2px 6px;white-space:nowrap;font-size:12px;color:var(--dsw-alias-label-secondary)}
+.nc-calendar .nc-item-actions button[aria-haspopup]{font-size:20px;line-height:20px;min-width:28px}
+.nc-item-meta time{white-space:nowrap;font-variant-numeric:tabular-nums}
+.nc-item-meta .nc-overdue{color:light-dark(#8a642e,#c6a16c)}
+.nc-calendar .nc-section-title button{border:0;color:var(--dsw-alias-label-secondary)}
+.nc-agenda [data-done] .nc-item-text{opacity:.55}
+@media(hover:hover) and (pointer:fine){
+ .nc-agenda-item .nc-item-actions{opacity:0}
+ .nc-agenda-item:hover .nc-item-actions,.nc-agenda-item:focus-within .nc-item-actions,.nc-item-actions[data-open]{opacity:1}
+}
+@media(any-pointer:coarse){.nc-agenda-item .nc-item-actions{opacity:1}}
+@media(prefers-reduced-motion:reduce){.nc-agenda-item .nc-item-actions{transition:none}}
+.nc-reschedule-popover{position:fixed;z-index:1100;box-sizing:border-box;width:244px;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);overflow:auto;padding:10px;border:.5px solid var(--dsw-alias-border-l1);box-shadow:var(--nv-overlay-shadow,0 8px 24px rgb(0 0 0 / 15%));color:var(--dsw-alias-label-primary);font:13px/1.5 var(--claude-font-sans,system-ui)}
+.nc-reschedule-popover>strong{display:block;font-size:12px;font-weight:500;color:var(--dsw-alias-label-secondary);padding:3px 8px 7px}
+.nc-reschedule-popover fieldset{border:0;padding:0;margin:0;min-width:0}
+.nc-reschedule-popover button{border:0;border-radius:6px;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.nc-reschedule-popover fieldset>button{display:block;width:100%;padding:7px 8px;text-align:left}
+.nc-reschedule-popover button:hover{background:var(--dsw-alias-interactive-bg-hover)}
+.nc-reschedule-popover button:disabled{opacity:.35;cursor:default}
+.nc-reschedule-popover button:focus-visible{outline:2px solid var(--claude-clay);outline-offset:-2px}
+.nc-reschedule-popover nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.nc-reschedule-popover nav button{width:30px;height:30px;font-size:20px}
+.nc-reschedule-popover nav strong{font-size:13px;font-weight:500}
+.nc-date-picker{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;text-align:center}
+.nc-date-picker>span{font-size:11px;color:var(--dsw-alias-label-secondary);padding:4px 0}
+.nc-date-picker button{aspect-ratio:1;padding:0;font-variant-numeric:tabular-nums}
+.nc-date-picker button[data-outside]{color:var(--dsw-alias-label-tertiary)}
+.nc-date-picker button[aria-current=date]{box-shadow:inset 0 0 0 1px var(--dsw-alias-border-l2)}
+.nc-date-picker button[aria-pressed=true]{background:var(--dsw-alias-interactive-bg-active);color:var(--claude-clay)}

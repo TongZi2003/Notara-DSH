@@ -1,0 +1,15 @@
+- insert:
+    - id: notara-presets
+      name: '@oh-my-student/plugin-presets'
+    - id: notara-vault-sqlite
+      name: '@oh-my-student/plugin-vault-sqlite'
+    - id: notara-home-recommend
+      name: '@oh-my-student/plugin-home-recommend'
+    - id: notara-vault-views
+      name: '@oh-my-student/plugin-vault-views'
+    - id: notara-graph-and-blocks
+      name: '@oh-my-student/plugin-graph-and-blocks'
+    - id: notara-pomodoro
+      name: '@oh-my-student/plugin-pomodoro'
+    - id: notara-calendar
+      name: '@oh-my-student/plugin-calendar'

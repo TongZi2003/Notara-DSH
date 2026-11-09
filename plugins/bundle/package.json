@@ -1,0 +1,61 @@
+{
+  "name": "@oh-my-student/dsh-bundle",
+  "version": "0.1.2",
+  "description": "Notara learning workspace: teaching, materials, graph, interactions and classroom pacing for DSH",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "README.md",
+    "locale",
+    "LICENSE",
+    "COPYRIGHT",
+    "THIRD_PARTY_NOTICES.md",
+    "host-adapter.mjs",
+    "math-adapter.mjs",
+    "skill-adapter.mjs",
+    "skill-presentation.js"
+  ],
+  "engines": {
+    "node": ">=24",
+    "dsh": "0.2.1-rc.4"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "@oh-my-student/plugin-presets": "0.1.2",
+    "@oh-my-student/plugin-vault-sqlite": "0.1.2",
+    "@oh-my-student/plugin-home-recommend": "0.1.2",
+    "@oh-my-student/plugin-vault-views": "0.1.2",
+    "@oh-my-student/plugin-graph-and-blocks": "0.1.2",
+    "@oh-my-student/plugin-pomodoro": "0.1.2",
+    "@oh-my-student/plugin-calendar": "0.1.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh": "0.2.1-rc.4"
+  },
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TongZi2003/Notara-DSH.git",
+    "directory": "plugins/bundle"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bin": {
+    "notara-host-adapter": "./host-adapter.mjs"
+  }
+}

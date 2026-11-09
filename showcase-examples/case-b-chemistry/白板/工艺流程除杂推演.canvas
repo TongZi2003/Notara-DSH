@@ -1,0 +1,101 @@
+{
+  "nodes": [
+    {
+      "id": "node-flow-1",
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 620,
+      "height": 340,
+      "text": "### 1. 菱锰矿制备 $\\text{MnSO}_4$ 工艺流程关键步挖空\n\n请根据「不引入新杂质」与「沉淀 $\\text{pH}$ 窗口」原则，补全流程中的关键试剂与滤渣成分：\n\n```flow\ndirection right\nA[菱锰矿粉: MnCO3/FeCO3/Fe2O3/Al2O3/SiO2] --> B[步骤①: 加过量稀 H2SO4 酸浸并过滤]\nB --> C[滤渣 I: SiO2]\nB --> D[酸浸液: Mn2+, Fe2+, Fe3+, Al3+, H+]\nD --> E[?]\nE --> F[氧化液: Mn2+, Fe3+, Al3+, H+]\nF --> G[?]\nG --> H[步骤④: 趁热过滤]\nH --> I[?]\nH --> J[纯净 MnSO4 滤液]\n```"
+    },
+    {
+      "id": "node-choice-1",
+      "type": "text",
+      "x": 680,
+      "y": 0,
+      "width": 520,
+      "height": 340,
+      "text": "### 2. 调节 $\\text{pH}$ 除铁铝的试剂判据辨析\n\n在步骤③向含有 $\\text{Mn}^{2+}$、$\\text{Fe}^{3+}$、$\\text{Al}^{3+}$、$\\text{H}^+$ 的氧化液中调节 $\\text{pH}$ 至 $5.00 \\sim 8.00$ 时，应选用哪一种试剂？\n\n步骤③调节溶液 pH 除去 Fe3+、Al3+ 的最佳试剂是哪一项？\n- MnCO3 粉末（或 MnO、Mn(OH)2）\n- NaOH 溶液\n- 浓氨水（NH3·H2O）\n- 生石灰（CaO）粉末\n\n请在对话中给出选择及理由。"
+    },
+    {
+      "id": "node-order-1",
+      "type": "text",
+      "x": 0,
+      "y": 400,
+      "width": 620,
+      "height": 340,
+      "text": "### 3. 工业流程酸浸液除杂与提纯操作顺序排列\n\n请将从菱锰矿粉制备高纯硫酸锰晶体的关键实验操作按先后依赖顺序排列，并说明为什么「氧化」必须在「调 $\\text{pH}$」之前：\n\n```order\n请将下列工业除杂与分离操作按正确的先后顺序排列\n- 加入 MnCO3 粉末调节溶液 pH 至 5.00 ~ 8.00，使 Fe3+、Al3+ 完全沉淀\n- 用过量稀硫酸酸浸菱锰矿粉，过滤除去不溶性杂质 SiO2\n- 趁热过滤除去 Fe(OH)3、Al(OH)3 滤渣，滤液经蒸发浓缩、冷却结晶得 MnSO4 晶体\n- 加入适量 MnO2（或 H2O2），将酸浸液中的 Fe2+ 完全氧化为 Fe3+\n```"
+    },
+    {
+      "id": "node-blank-1",
+      "type": "text",
+      "x": 680,
+      "y": 400,
+      "width": 520,
+      "height": 340,
+      "text": "### 4. $K_{sp}$ 定量计算「两头堵」区间核对\n\n已知室温下 $K_{sp}[\\text{Fe(OH)}_3]=8.0\\times 10^{-38}$，$K_{sp}[\\text{Al(OH)}_3]=1.0\\times 10^{-32}$，$K_{sp}[\\text{Mn(OH)}_2]=1.0\\times 10^{-13}$，$c(\\text{Mn}^{2+})=0.10\\text{ mol/L}$：\n\n1. 当 Fe3+ 与 Al3+ 均完全沉淀（残留 c <= 1.0×10^-5 mol/L）时，所需最小 pH 下限由更难沉淀的 （待填写：填写 Fe3+ 或 Al3+） 决定，算得下限 pH = （待填写：填写具体数值）。\n2. 为防止 0.10 mol/L 的主金属离子 Mn2+ 沉淀损失，代入初始浓度算得开始沉淀的上限 pH = （待填写：填写具体数值），故合理 pH 范围为 （待填写：填写完整区间）。\n\n请在对话中作答。"
+    },
+    {
+      "id": "node-file-card1",
+      "type": "file",
+      "file": "卡片/溶度积Ksp与离子完全沉淀的pH定量判据.md",
+      "x": 0,
+      "y": 800,
+      "width": 380,
+      "height": 240
+    },
+    {
+      "id": "node-file-card2",
+      "type": "file",
+      "file": "卡片/铁铝铜离子的氧化转化与氢氧化物沉淀pH窗口.md",
+      "x": 410,
+      "y": 800,
+      "width": 380,
+      "height": 240
+    },
+    {
+      "id": "node-file-card3",
+      "type": "file",
+      "file": "卡片/工艺流程调pH除杂与不引入新杂质试剂选法.md",
+      "x": 820,
+      "y": 800,
+      "width": 380,
+      "height": 240
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-1",
+      "fromNode": "node-flow-1",
+      "fromSide": "right",
+      "toNode": "node-choice-1",
+      "toSide": "left",
+      "label": "步骤③试剂选型"
+    },
+    {
+      "id": "edge-2",
+      "fromNode": "node-flow-1",
+      "fromSide": "bottom",
+      "toNode": "node-order-1",
+      "toSide": "top",
+      "label": "工序先后依赖"
+    },
+    {
+      "id": "edge-3",
+      "fromNode": "node-choice-1",
+      "fromSide": "bottom",
+      "toNode": "node-blank-1",
+      "toSide": "top",
+      "label": "pH窗口定量计算"
+    },
+    {
+      "id": "edge-4",
+      "fromNode": "node-blank-1",
+      "fromSide": "bottom",
+      "toNode": "node-file-card1",
+      "toSide": "top",
+      "label": "调用Ksp判据"
+    }
+  ]
+}

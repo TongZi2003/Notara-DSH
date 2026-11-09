@@ -1,0 +1,123 @@
+{
+  "name": "@oh-my-student/plugin-vault-sqlite",
+  "version": "0.1.2",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "vault-indexer.js",
+    "changes.js",
+    "changes-client.js",
+    "vault-path.js",
+    "file-reference.js",
+    "bases.js",
+    "drawing-files.js",
+    "drawing-sync.js",
+    "drawing-math.js",
+    "math-reference.js",
+    "drawing-mindmap.js",
+    "drawing-library.js",
+    "vendor/excalimath",
+    "drawing-session.js",
+    "canvas-flow.js",
+    "frontmatter.js",
+    "review.js",
+    "review-contract.js",
+    "review-schedule.js",
+    "markdown-projection.js",
+    "knowledge-relations.js",
+    "graph-transport.js",
+    "lesson-plan.js",
+    "lesson-bindings.js",
+    "whiteboard-bindings.js",
+    "summary-document.js",
+    "summary-receipts.js",
+    "source-import.js",
+    "route-projection.js",
+    "preview.js",
+    "remote.js",
+    "workspace-client.js",
+    "src/client.jsx",
+    "dist/client.js",
+    "LICENSE",
+    "COPYRIGHT",
+    "THIRD_PARTY_NOTICES.md",
+    "locale"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./store": "./vault-indexer.js",
+    "./vault-path": "./vault-path.js",
+    "./file-reference": "./file-reference.js",
+    "./bases": "./bases.js",
+    "./frontmatter": "./frontmatter.js",
+    "./markdown-projection": "./markdown-projection.js",
+    "./knowledge-relations": "./knowledge-relations.js",
+    "./graph-transport": "./graph-transport.js",
+    "./lesson-plan": "./lesson-plan.js",
+    "./lesson-bindings": "./lesson-bindings.js",
+    "./summary-document": "./summary-document.js",
+    "./summary-receipts": "./summary-receipts.js",
+    "./source-import": "./source-import.js",
+    "./route-projection": "./route-projection.js",
+    "./drawing-files": "./drawing-files.js",
+    "./drawing-sync": "./drawing-sync.js",
+    "./drawing-math": "./drawing-math.js",
+    "./math-reference": "./math-reference.js",
+    "./drawing-mindmap": "./drawing-mindmap.js",
+    "./drawing-library": "./drawing-library.js",
+    "./canvas-flow": "./canvas-flow.js",
+    "./review": "./review.js",
+    "./review-contract": "./review-contract.js",
+    "./review-schedule": "./review-schedule.js",
+    "./remote": "./remote.js",
+    "./workspace-client": "./workspace-client.js",
+    "./preview": "./preview.js",
+    "./client": "./dist/client.js",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-api-remotes"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "benchmark": "node test/benchmark.js",
+    "profile": "node test/profile.js"
+  },
+  "dependencies": {
+    "chokidar": "4.0.3",
+    "yaml": "2.8.1",
+    "markdown-it": "14.1.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-api-gateway": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-typert-registry": "0.2.1-rc.4",
+    "esbuild": "0.28.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-storage-domain": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-typert-protocol": "0.2.1-rc.4"
+  },
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TongZi2003/Notara-DSH.git",
+    "directory": "plugins/vault-sqlite"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

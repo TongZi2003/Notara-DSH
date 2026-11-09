@@ -1,0 +1,21 @@
+export const PLANAR_SOURCE=`view x -3..8 y -3..7
+point A = (0, 0) drag
+point B = (6, 0) drag
+point C = (2, 4) drag
+line AB = A B
+line BC = B C
+line CA = C A
+circumcenter O = A B C
+circumcircle c = A B C
+incenter I = A B C
+incircle k = A B C
+midpoint M = A B
+parallel p = BC through M
+perpendicular h = AB through C
+foot H = C on AB
+bisector b = A C B
+intersection E = p CA
+glider P = (6, 3) on c
+tangent tP = c at P
+glider Q = (3, 0) on AB
+segment O P`;

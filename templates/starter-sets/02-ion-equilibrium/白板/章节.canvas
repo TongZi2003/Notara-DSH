@@ -1,0 +1,76 @@
+{
+  "nodes": [
+    {
+      "id": "345627f3-d91d-417c-a5ae-6d3022e7dd1e",
+      "type": "text",
+      "text": "## 模型与操作范围\n\n原创理想模型：H2A的pKa1=3、pKa2=7，固定温度、理想稀溶液，仅有H2A、HA-、A2-三种含A形态，pH由外部指定。H按标准浓度归一化，数值为10^(-pH)。本白板不是滴定实验。\n\n先做 [[01-从平衡到分布系数|完整题面]]，再用下面有提示的步骤核对；没有预填答案。需要向老师提交先进入本学习集课堂，无课堂时先在纸上尝试。正式复习单独确认。见 [[06-来源说明|原创说明]]。",
+      "x": 40,
+      "y": 40,
+      "width": 500,
+      "height": 340
+    },
+    {
+      "id": "ce6cb24b-d629-4d59-8c60-4052e7c6f5e7",
+      "type": "text",
+      "text": "## 补一步：分布公式的分母\n\n```blank\n令D为三项总和，H>0，Ka1=10^-3、Ka2=10^-7。\n三形态浓度比为H^2 : Ka1 H : {{ 第三项 }}\nD= {{ 写出全部三项 }}\nalpha1= {{ 中间形态分数 }}\n三个alpha相加为 {{ 数值与原因 }}\n```",
+      "x": 40,
+      "y": 420,
+      "width": 500,
+      "height": 380
+    },
+    {
+      "id": "908a7886-f1ef-420a-8cab-ba3c04d2eb88",
+      "type": "text",
+      "text": "## 选择：pH5的精确占比\n\n```choice\n同一模型在pH5，H2A:HA-:A2-=1:100:1。HA-占全部含A形态的精确分数是多少？说明分母包括谁。\n- 100/102\n- 100/101\n- 1\nreason required\n```\n\n完整推导见 [[02-pH5到底有多少中间形态|pH5题卡]]。",
+      "x": 580,
+      "y": 40,
+      "width": 560,
+      "height": 320
+    },
+    {
+      "id": "2cd7642a-8b60-4be5-b903-504cedcd834a",
+      "type": "text",
+      "text": "## 预测下一帧：相邻相等就各一半吗\n\n```frames\ntitle 相交点与总量\nframe 相邻两项相等\n在pH3，HA-/H2A=1，A2-/HA-=10^-4。请先预测三项之比，并判断前两项是否各占总量一半。\npredict\nframe 包括第三项\n三项之比是1:1:10^-4。前两项各占1/(2+10^-4)，略小于1/2。\n请预测：仅凭受控pH分布图，能不能读出滴定至pH5所需的碱体积？还缺什么？\npredict\nframe 图像边界\n不能。横轴是受控pH，不是滴定体积；还需初始量、溶液与滴定剂浓度、体积及相应平衡条件。\n本题没有这些滴定设定。直接揭帧属于已看提示，不算独立完成。\n```",
+      "x": 580,
+      "y": 400,
+      "width": 560,
+      "height": 600
+    },
+    {
+      "id": "distribution-intersection",
+      "type": "text",
+      "text": "## 点选：相邻分布曲线的交点\n\nf表示H₂A，g表示HA⁻，h表示A²⁻；横轴是外部受控pH，纵轴是分布分数。请点f与g的交点，用相邻解离式解释横坐标。\n\n```figure\naxes x 2..8 y 0..1.05\nfunction f(x) = 10^(-2*x)/(10^(-2*x)+10^(-3-x)+10^(-10))\nfunction g(x) = 10^(-3-x)/(10^(-2*x)+10^(-3-x)+10^(-10))\nfunction h(x) = 10^(-10)/(10^(-2*x)+10^(-3-x)+10^(-10))\nask point \"点出H2A与HA-曲线的交点，并说明横坐标意义\"\n```\n\n见 [[08-交点与对数比值读图]]。这里只记录取点，不自动判定化学推理。",
+      "x": 40,
+      "y": 1100,
+      "width": 650,
+      "height": 590
+    },
+    {
+      "id": "distribution-source-image",
+      "type": "file",
+      "file": "assets/diprotic-distribution.png",
+      "x": 730,
+      "y": 1100,
+      "width": 650,
+      "height": 440
+    },
+    {
+      "id": "proton-condition",
+      "type": "text",
+      "text": "## 补一步：从两条守恒得到质子条件\n\n```blank\nNaHA理想水溶液，未加其他酸碱，含A物种仅H2A、HA-、A2-。\n[Na+]= {{ 用总浓度CT表示 }}\n电荷式中[A2-]的系数是 {{ 系数及理由 }}\n消去Na+与CT后：H + [H2A] = {{ 写出右边两项 }}\n这是不是独立于物料与电荷的新增方程？ {{ 解释 }}\n```\n\n见 [[06-质子条件与参考形态]]。",
+      "x": 40,
+      "y": 1740,
+      "width": 560,
+      "height": 450
+    }
+  ],
+  "edges": [
+    {
+      "id": "chapter-02-ion-equilibrium",
+      "fromNode": "distribution-intersection",
+      "toNode": "distribution-source-image",
+      "label": "同一公式的已有图",
+      "toEnd": "arrow"
+    }
+  ]
+}

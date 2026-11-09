@@ -1,0 +1,74 @@
+{
+  "name": "@oh-my-student/plugin-presets",
+  "version": "0.1.2",
+  "type": "module",
+  "description": "Native DSH teaching presets and bundled filesystem skills",
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": ">=24"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./prompt": "./prompt.js",
+    "./policy": "./policy.js",
+    "./tools": "./tools.js",
+    "./catalog": "./catalog.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "*.js",
+    "resources",
+    "LICENSE",
+    "COPYRIGHT",
+    "THIRD_PARTY_NOTICES.md",
+    "locale"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "sync:resources": "node scripts/sync-resources.mjs"
+  },
+  "dependencies": {
+    "diff": "9.0.0"
+  },
+  "peerDependencies": {
+    "@oh-my-student/plugin-vault-sqlite": "0.1.2",
+    "@oh-my-student/plugin-graph-and-blocks": "0.1.2",
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-agent": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-agent-preset": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-llm": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-scope": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-session": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-session-query": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-skill-filesystem": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-subagent": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-system-prompt": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-tool-bash": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-tool-ask-user": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-user-questions": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-tool-fs": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-tool-fs-search": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-tool-skill": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-tool-jobs": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-tool-web": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.4"
+  },
+  "peerDependenciesMeta": {
+    "@oh-my-student/plugin-vault-sqlite": {
+      "optional": true
+    },
+    "@oh-my-student/plugin-graph-and-blocks": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TongZi2003/Notara-DSH.git",
+    "directory": "plugins/presets"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

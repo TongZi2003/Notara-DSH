@@ -1,0 +1,101 @@
+{
+  "name": "@oh-my-student/plugin-vault-views",
+  "version": "0.1.2",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./dist/client.js",
+    "./workspace": "./src/workspace.jsx",
+    "./logic": "./src/logic.js",
+    "./styles.css": "./src/styles.css",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "src",
+    "dist",
+    "LICENSE",
+    "COPYRIGHT",
+    "THIRD_PARTY_NOTICES.md",
+    "assets/companions",
+    "assets/claude-fonts/Noto*.ttf",
+    "assets/claude-fonts/OFL*",
+    "assets/claude-fonts/SOURCES.md",
+    "locale"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-agent-preset-registry": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-util-workspace-path": "0.2.1-rc.4",
+    "@codemirror/commands": "6.11.1",
+    "@codemirror/lang-markdown": "6.5.2",
+    "@codemirror/language": "6.13.1",
+    "@codemirror/state": "6.7.6",
+    "@codemirror/view": "6.43.15",
+    "@excalidraw/excalidraw": "0.18.1",
+    "@lezer/highlight": "1.2.5",
+    "@milkdown/crepe": "7.22.3",
+    "@milkdown/kit": "7.22.3",
+    "@oh-my-student/plugin-vault-sqlite": "0.1.2",
+    "@oh-my-student/plugin-graph-and-blocks": "0.1.2",
+    "@xyflow/react": "12.12.0",
+    "codemirror": "6.0.2",
+    "mdast-util-from-markdown": "2.1.0",
+    "mdast-util-math": "3.0.0",
+    "micromark-extension-math": "3.1.0",
+    "pdfjs-dist": "6.3.289",
+    "react-data-grid": "7.0.0-beta.47",
+    "yaml": "2.9.1",
+    "zundo": "2.3.0",
+    "zustand": "5.0.8",
+    "micromark-core-commonmark": "2.0.4",
+    "micromark-util-character": "2.1.1",
+    "micromark-util-classify-character": "2.0.1",
+    "micromark-util-symbol": "2.0.1",
+    "micromark-extension-gfm": "3.0.0",
+    "mdast-util-gfm": "3.1.0",
+    "micromark-util-decode-string": "2.0.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-client-ui-primitives": "0.2.1-rc.4",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-sidebar-right",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-input-trigger",
+        "@deepseek-ai/dsh-client-ui-commands",
+        "@deepseek-ai/dsh-client-ui-primitives",
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@oh-my-student/plugin-vault-sqlite"
+      ]
+    }
+  },
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TongZi2003/Notara-DSH.git",
+    "directory": "plugins/vault-views"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

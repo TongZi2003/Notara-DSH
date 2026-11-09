@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtempSync,writeFileSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';import {join} from 'node:path';
+import {DatabaseSync} from 'node:sqlite';
+import {createVaultStore} from '../vault-indexer.js';
+import {defaultLibraryBase,evaluateBase} from '../bases.js';
+test('plan and legacy guide share library projections without rewriting sources or route semantics',async t=>{
+ const root=mkdtempSync(join(tmpdir(),'plan-index-')),cachePath=join(root,'cache.sqlite');
+ const files={'新计划.md':'---\ntype: plan\n---\n# 新计划\n- [ ] 单调性 📅 2026-11-10','旧导读.md':'---\ntype: guide\n---\n# 旧导读','路线.md':'---\ntype: route\n---\n# 路线','备课.md':'---\ntype: lesson\n---\n# 备课'};
+ for(const [name,text] of Object.entries(files))writeFileSync(join(root,name),text);
+ let store=createVaultStore({root,cachePath});await store.close();
+ const db=new DatabaseSync(cachePath);db.exec("UPDATE documents SET is_guide=0 WHERE type='plan'; UPDATE cache_meta SET projection_version=13;");db.close();
+ store=createVaultStore({root,cachePath});t.after(async()=>{await store.close();rmSync(root,{recursive:true,force:true});});
+ for(const input of [{view:'guides'},{type:'guide'},{type:'plan'}])assert.deepEqual(store.query(input).documents.map(row=>row.path).sort(),['新计划.md','旧导读.md'].sort());
+ assert.equal(store.query({view:'routes'}).total,1);assert.equal(store.query({view:'lessons'}).total,1);
+ const documents=store.query({}).documents,base=defaultLibraryBase();assert.equal(base.views[1].name,'学习计划');assert.equal(evaluateBase(base,documents,1).rows.length,2);
+ for(const type of ['guide','plan'])assert.equal(evaluateBase({views:[{type:'table',name:'计划',filters:'notara.type == "'+type+'"'}]},documents).rows.length,2);
+ for(const [path,content] of Object.entries(files))assert.equal(store.read({path}).content,content);
+});

@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import {mkdir} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {createRequire} from 'node:module';
+import React from 'react';
+import {renderToStaticMarkup} from 'react-dom/server';
+test('source clicks bind the message session and workspace; queue save keeps original wire text',async()=>{
+  const output=new URL('../.test-output/',import.meta.url);await mkdir(output,{recursive:true});
+  const outfile=fileURLToPath(new URL('message-references.cjs',output));
+  await build({entryPoints:[fileURLToPath(new URL('../src/message-references.jsx',import.meta.url))],outfile,bundle:true,format:'cjs',platform:'node',jsx:'automatic',external:['react'],logLevel:'warning'});
+  const {sourceMessageLocator}=createRequire(import.meta.url)(outfile);
+  const ctx={get:name=>name==='workspaces'?{list:{getSnapshot:()=>({items:[{workspaceId:'message-ws',sessionIds:['message-session']},{workspaceId:'active-ws',sessionIds:['active-session']}]})}}:undefined};
+  assert.deepEqual(sourceMessageLocator(ctx,'message-session',{path:'a.md',revision:'r1'}),{path:'a.md',revision:'r1',workspaceId:'message-ws',sourceSessionId:'message-session'});
+  assert.equal(sourceMessageLocator(ctx,'missing',{path:'a.md'}),null);
+  assert.equal(sourceMessageLocator(ctx,'message-session',{path:'a.md',workspaceId:'pinned-ws'}).workspaceId,'pinned-ws');
+  const queuefile=fileURLToPath(new URL('queue-reference-editor.cjs',output));
+  await build({entryPoints:[fileURLToPath(new URL('../src/queue-reference-editor.jsx',import.meta.url))],outfile:queuefile,bundle:true,format:'cjs',platform:'node',jsx:'automatic',external:['react'],logLevel:'warning'});
+  const {QueueReferenceEditor}=createRequire(import.meta.url)(queuefile);
+  const raw='HIDDEN_INSTRUCTION我的提问',sent=[];
+  const inbox={'next-turn':[{id:'queued',content:[{type:'text',text:raw}]}]};
+  const userText={subscribe:()=>()=>{},getSnapshot:()=>0,createEvaluator:()=>()=>[{id:'text',start:0,end:18,data:{text:'HIDDEN_INSTRUCTION',display:'【大小姐】'}},{id:'text',start:18,end:raw.length,data:{text:'我的提问'}}]};
+  const Native=props=>{const row=props.useProjection('inbox')['next-turn'][0];assert.equal(row.content[0].text,'【大小姐】我的提问');props.updateQueue('queued',{kind:'edit',content:[{type:'text',text:row.content[0].text+'补充'}]});return React.createElement('p',null,row.content[0].text);};
+  const html=renderToStaticMarkup(React.createElement(QueueReferenceEditor,{Native,userText,useProjection:()=>inbox,updateQueue:(id,action)=>sent.push({id,action})}));
+  assert.doesNotMatch(html,/HIDDEN_INSTRUCTION/);assert.equal(sent[0].action.content[0].text,raw+'补充');assert.equal(inbox['next-turn'][0].content[0].text,raw);
+});

@@ -1,0 +1,12 @@
+# Shipped resource hashes and templates must have identical bytes on every OS.
+* text=auto eol=lf
+*.woff2 binary
+*.woff binary
+*.ttf binary
+*.png binary
+*.jpg binary
+*.pdf binary
+# Unified patches contain a single-space marker on empty context lines.
+# Check whitespace in the pinned source tree after applying each patch.
+resources/patches/*.patch -whitespace
+resources/native/**/*.exe binary

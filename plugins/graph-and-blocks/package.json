@@ -1,0 +1,78 @@
+{
+  "name": "@oh-my-student/plugin-graph-and-blocks",
+  "version": "0.1.2",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./dist/client.js",
+    "./component": "./src/client.jsx",
+    "./blocks": "./src/blocks.jsx",
+    "./canvas": "./src/canvas.jsx",
+    "./styles.css": "./src/styles.css",
+    "./chat-visibility": "./src/chat-visibility.js",
+    "./review-proposals": "./src/review-proposals.js",
+    "./markdown-math": "./src/domain/markdown-math.js",
+    "./math-expression": "./src/domain/math-expression.js",
+    "./drawing-math": "./src/domain/drawing-math.js",
+    "./figure-state": "./src/domain/figure-state.js",
+    "./geometry-engine": "./src/geometry-engine.jsx",
+    "./locale/*.json": "./locale/*.json",
+    "./selection-interaction": "./src/selection-interaction.js",
+    "./success-feedback": "./src/success-feedback.jsx"
+  },
+  "files": [
+    "index.js",
+    "src",
+    "dist",
+    "THIRD_PARTY_NOTICES.md",
+    "LICENSE",
+    "COPYRIGHT",
+    "locale"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@oh-my-student/plugin-vault-sqlite",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-primitives"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-api-remotes": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-client-ui-primitives": "0.2.1-rc.4",
+    "react": "18.3.1"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-util-workspace-path": "0.2.1-rc.4",
+    "@oh-my-student/plugin-vault-sqlite": "0.1.2",
+    "katex": "0.16.22",
+    "d3-force": "3.0.0",
+    "jsxgraph": "1.13.3",
+    "mdast-util-from-markdown": "2.1.0",
+    "mdast-util-math": "3.0.0",
+    "micromark-extension-math": "3.1.0"
+  },
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TongZi2003/Notara-DSH.git",
+    "directory": "plugins/graph-and-blocks"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

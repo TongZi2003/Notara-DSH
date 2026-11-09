@@ -1,0 +1,43 @@
+{
+  "name": "@oh-my-student/dsh-plugins-workspace",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "workspaces": [
+    "plugins/*"
+  ],
+  "overrides": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/cordis-plugin-include": "1.0.10",
+    "@deepseek-ai/cordis-plugin-loader": "1.0.6",
+    "@deepseek-ai/cordis-plugin-group": "1.0.5",
+    "@deepseek-ai/cordis-plugin-timer": "1.1.7"
+  },
+  "scripts": {
+    "postinstall": "node scripts/patch-dsh-chat.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs",
+    "test:integration": "node --test tests/*.test.mjs",
+    "test:native": "node scripts/smoke-native.mjs",
+    "pack:plugins": "node scripts/pack.mjs"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-agent-preset": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-api-remotes": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-typert-protocol": "0.2.1-rc.4",
+    "@deepseek-ai/dsh-skill-filesystem": "0.2.1-rc.4",
+    "@playwright/test": "1.63.0",
+    "esbuild": "0.28.2",
+    "node": "24.13.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "yaml": "2.9.1"
+  },
+  "license": "AGPL-3.0-only"
+}

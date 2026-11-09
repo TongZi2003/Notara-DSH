@@ -1,0 +1,189 @@
+{
+  "default": null,
+  "choices": [],
+  "skills": [
+    {
+      "id": "whiteboard",
+      "title": "白板教学",
+      "summary": "把题目、图示和推导放到白板上一起讨论。",
+      "description": "学生通过白板命令启用后，在当前会话绑定的 Canvas 中持续组织题目、资料、图示与关键推导。查阅本技能不会自动启用或新建白板。",
+      "file": "skills/whiteboard.md",
+      "userInvocable": false,
+      "roles": ["teacher", "coordinator"],
+      "resources": [{ "path": "references/drawing.md", "source": "../prompts/references/drawing.md" }]
+    },
+    {
+      "id": "pdf-learning-set",
+      "title": "资料整理与图谱构建",
+      "summary": "整理教材、讲义和笔记，串起知识与来源。",
+      "description": "收到教材、讲义、试卷、PDF、笔记或具体例子材料，需按实际范围整理来源、知识实体、明确前序与例子知识标签、资料导读，或续接已有整理任务时使用；遵守明确不整理、不保存和范围限制。",
+      "file": "skills/pdf-learning-set.md",
+      "menu": "common",
+      "roles": ["organizer", "teacher", "worker"],
+      "resources": [
+        { "path": "references/book-backbone.md", "source": "../prompts/references/book-backbone.md" },
+        { "path": "references/curation-spec.md", "source": "../prompts/references/curation-spec.md" },
+        { "path": "templates/card.md", "source": "../templates/base-files/card.md" },
+        { "path": "templates/route.md", "source": "../templates/base-files/route.md" },
+        { "path": "templates/source-guide.md", "source": "../templates/base-files/source.md" },
+        { "path": "templates/math-concept.md", "source": "../showcase-examples/case-a-svd/模板/知识点模板.md" },
+        { "path": "templates/math-problem.md", "source": "../showcase-examples/case-a-svd/模板/计算与推导题模板.md" },
+        { "path": "templates/chemistry-process.md", "source": "../showcase-examples/case-b-chemistry/模板/实验与工艺流程题模板.md" },
+        { "path": "templates/code-practice.md", "source": "../showcase-examples/case-c-asyncio/模板/实战与排错模板.md" }
+      ]
+    },
+    {
+      "id": "quest-tutor",
+      "title": "单题研讨与引导学习",
+      "summary": "从一个具体问题出发，逐步理解和探索。",
+      "description": "围绕题目、概念、实验、代码、事件或病案材料进行讨论、理解、比较与探索，或按真实表现推进课堂、记录认识变化和贡献时使用。",
+      "file": "skills/quest-tutor.md",
+      "menu": "common",
+      "roles": ["teacher"],
+      "resources": [
+        { "path": "references/drawing.md", "source": "../prompts/references/drawing.md" },
+        { "path": "templates/card.md", "source": "../templates/base-files/card.md" },
+        { "path": "templates/lesson.md", "source": "../templates/base-files/lesson.md" }
+      ]
+    },
+    {
+      "id": "examiner-analysis",
+      "title": "命题人视角分析",
+      "summary": "看懂题目考什么，为什么这样设置条件。",
+      "description": "资料整理、备课或错题复盘中需要分析题目考查目标、条件与小问设置、设空与干扰项作用、改条件后的推演及训练价值，或学生询问这些问题时使用；后台分析不以学生先发问为前提。",
+      "file": "skills/examiner-analysis.md",
+      "menu": "common",
+      "roles": ["organizer", "teacher", "worker"]
+    },
+    {
+      "id": "review-brainstorm",
+      "title": "学习记录与续接",
+      "summary": "记下新的理解和疑问，约好下次继续的问题。",
+      "description": "任意学习中记录真实认识、问题、帮助与纠错，按需设计下次可以继续的具体动作并自主判断回访时间；沿卡片、日记和长期教师续接，正式检验仍由学生确认。",
+      "file": "skills/review-brainstorm.md",
+      "menu": "common",
+      "roles": ["organizer", "teacher", "worker", "coordinator"]
+    },
+    {
+      "id": "lesson-preparation",
+      "title": "个性化备课",
+      "summary": "结合你的资料、进度和目标，准备一节课。",
+      "description": "主老师结合资料、学生已有学习与本次目标，选择递进的教学单元、准备可执教的单课备课本（type: lesson），或调整已有课稿时使用。",
+      "file": "skills/lesson-preparation.md",
+      "menu": "common",
+      "roles": ["teacher"],
+      "resources": [
+        { "path": "templates/lesson.md", "source": "../templates/base-files/lesson.md" }
+      ]
+    },
+    {
+      "id": "quest-orchestrator",
+      "title": "学习路线",
+      "summary": "理清学习目标，安排阶段计划和下一步。",
+      "description": "出现系统学习目标、新专题或有证据的背景与稳定偏好，需主动建立维护画像、安排长期学习路线或续接、接收资料整理清单与课堂交付，或学生要求二刷、分享副本及询问《AI时代的自学观》理念、Notara 设计哲学与用法时使用；普通单题答疑无需先规划。",
+      "file": "skills/quest-orchestrator.md",
+      "menu": "common",
+      "roles": ["coordinator", "teacher"],
+      "resources": [
+        { "path": "templates/plan.md", "source": "../templates/base-files/plan.md" },
+        { "path": "templates/route.md", "source": "../templates/base-files/route.md" },
+        { "path": "templates/learner-profile.md", "source": "../templates/base-files/learner-profile.md" },
+        { "path": "templates/lesson.md", "source": "../templates/base-files/lesson.md" }
+      ]
+    },
+    {
+      "id": "recommend",
+      "title": "下一步学习推荐",
+      "summary": "结合进度、兴趣和卡点，选一件值得做的事。",
+      "description": "学生想知道接下来做什么或新交付改变下一步时，综合错因、遗忘、兴趣与学习路线，在当前对话给出具体建议；可以只回复，需要接续的安排保留在现有画像的推荐清单中。",
+      "file": "skills/recommend.md",
+      "menu": "common",
+      "roles": ["coordinator", "teacher"]
+    },
+    {
+      "id": "exam-diagnosis",
+      "title": "试卷诊断与补强",
+      "summary": "带上试卷和作答，找到最值得补强的地方。",
+      "description": "学生带来试卷、批改或草稿，需要依据真实步骤诊断少数关键缺口，选择补强短练、题组或课堂时使用；无作答不编造错因，只要求诊断可在交付处结束。",
+      "file": "skills/exam-diagnosis.md",
+      "menu": "common",
+      "roles": ["coordinator", "teacher"],
+      "resources": [
+        { "path": "templates/card.md", "source": "../templates/base-files/card.md" },
+        { "path": "templates/lesson.md", "source": "../templates/base-files/lesson.md" },
+        { "path": "templates/learner-profile.md", "source": "../templates/base-files/learner-profile.md" },
+        { "path": "templates/route.md", "source": "../templates/base-files/route.md" }
+      ]
+    },
+    {
+      "id": "error-analysis",
+      "title": "错因分析",
+      "summary": "结合草稿和回忆，找出卡点与改进办法。",
+      "description": "面向考试复盘外部错题或课堂评估误区，需要结合回忆与草稿，从知识、熟练度和考试心理理解原因、引导习惯，或长期维护错因画像供针对性备课使用时加载。",
+      "file": "skills/error-analysis.md",
+      "menu": "common",
+      "roles": ["coordinator", "teacher", "worker"],
+      "resources": [
+        { "path": "templates/card.md", "source": "../templates/base-files/card.md" },
+        { "path": "templates/learner-profile.md", "source": "../templates/base-files/learner-profile.md" }
+      ]
+    },
+    {
+      "id": "exam-cram",
+      "title": "考前复习与状态准备",
+      "summary": "抓住考前重点，安排复习节奏和考场策略。",
+      "description": "近期考试前，需结合范围、剩余时间、历史弱点和学生近期状态安排复习、考场节奏及少量代表性检验时使用；时间不足缩减目标。",
+      "file": "skills/exam-cram.md",
+      "menu": "common",
+      "roles": ["coordinator", "teacher"],
+      "resources": [
+        { "path": "templates/lesson.md", "source": "../templates/base-files/lesson.md" },
+        { "path": "templates/card.md", "source": "../templates/base-files/card.md" },
+        { "path": "templates/route.md", "source": "../templates/base-files/route.md" }
+      ]
+    },
+    {
+      "id": "school-notes",
+      "title": "笔记整理与拓展",
+      "summary": "理顺已有笔记，补充解释、联系和新问题。",
+      "description": "收到笔记、板书、讲义或个人总结，需要保留原件与出处、补充知识实体，或按学生目的比较解释与拓展时使用；教师补充和学生理解分别保存，仅整理可直接交付结束。",
+      "file": "skills/school-notes.md",
+      "menu": "common",
+      "roles": ["coordinator", "organizer", "teacher"],
+      "resources": [
+        { "path": "templates/card.md", "source": "../templates/base-files/card.md" },
+        { "path": "templates/source-guide.md", "source": "../templates/base-files/source.md" },
+        { "path": "templates/math-concept.md", "source": "../showcase-examples/case-a-svd/模板/知识点模板.md" },
+        { "path": "templates/math-problem.md", "source": "../showcase-examples/case-a-svd/模板/计算与推导题模板.md" }
+      ]
+    },
+    {
+      "id": "practice-design",
+      "title": "练习与探究",
+      "summary": "挑选题目或案例，练习应用、比较和迁移。",
+      "description": "需从已导入题库或其他资料选择具体例子，编排比较、选法、组合应用、迁移、实验或作品改进活动时使用；组卷沿用此流程，首页交接目标，老师负责具体选择。",
+      "file": "skills/practice-design.md",
+      "menu": "common",
+      "roles": ["coordinator", "teacher"],
+      "resources": [
+        { "path": "templates/lesson.md", "source": "../templates/base-files/lesson.md" },
+        { "path": "templates/card.md", "source": "../templates/base-files/card.md" }
+      ]
+    },
+    {
+      "id": "summer-preview",
+      "title": "新课预习",
+      "summary": "从已有基础出发，为新章节找到合适的起点。",
+      "description": "学生提前预习新学期科目、新章节或先修内容，需明确阶段目标与预习里程碑、准备重直觉与基础正例的近期课堂，并按实际进展动态调整后续路线时使用；首页与专题课堂均可直接加载。",
+      "file": "skills/summer-preview.md",
+      "menu": "common",
+      "roles": ["coordinator", "teacher"],
+      "resources": [
+        { "path": "templates/route.md", "source": "../templates/base-files/route.md" },
+        { "path": "templates/lesson.md", "source": "../templates/base-files/lesson.md" },
+        { "path": "templates/learner-profile.md", "source": "../templates/base-files/learner-profile.md" },
+        { "path": "templates/card.md", "source": "../templates/base-files/card.md" }
+      ]
+    }
+  ]
+}

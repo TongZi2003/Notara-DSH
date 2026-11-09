@@ -1,0 +1,3 @@
+export const METHODS=['status','start','stop'];
+const codec={parse(value){if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Invalid timer request');return value;}};
+export const CONTRIBUTION={package:'@oh-my-student/plugin-pomodoro',descriptors:METHODS.map(method=>({id:`@oh-my-student/plugin-pomodoro#notaraPomodoro/${method}`,service:'notaraPomodoro',namespace:'notaraPomodoro',method,invocation:{kind:'direct'},parameters:[{name:'input',wire:'input',source:'json',codec:{mode:'strict',typeSymbol:'@oh-my-student/plugin-pomodoro#Input',create:()=>codec}}],result:{mode:'strict',typeSymbol:'@oh-my-student/plugin-pomodoro#Result',create:()=>codec}}))};

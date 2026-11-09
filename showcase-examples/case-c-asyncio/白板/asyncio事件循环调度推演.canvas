@@ -1,0 +1,102 @@
+{
+  "nodes": [
+    {
+      "id": "node-overview",
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 520,
+      "height": 260,
+      "text": "# Python `asyncio` 单线程事件循环与并发排错推演\n\n围绕你的核心痛点——**「为什么在 `async def` 里写了 `time.sleep(1)` / `requests.get()`，或者连续写两行 `await`，5 个任务跑起来还是花了 5 秒？」**，我们按右侧三个交互模块逐步拆解：\n\n1. **时间轴推演（`frames`）**：对比「直接连续 `await`（串行 3s）」与「先 `create_task` 再 `await`（并发 2s）」在单线程事件循环中的逐秒状态流转；\n2. **阻塞诊断决策（普通辨析题）**：定位 `async def` 内部调用 `time.sleep(1)` 导致假并发（5.02s）的根本原因；\n3. **最小并发改造实操（普通填空题）**：亲手补全原生异步并发与 `to_thread` 阻塞卸载的关键代码行。"
+    },
+    {
+      "id": "node-frames-timeline",
+      "type": "text",
+      "x": 580,
+      "y": 0,
+      "width": 640,
+      "height": 420,
+      "text": "## 1. 逐帧时间轴：直接连续 `await` vs `create_task` 并发调度\n\n假设 `say_after(delay, msg)` 内部执行 `await asyncio.sleep(delay)`。请逐帧切换并预测总耗时：\n\n```frames\ntitle 单线程事件循环（Event Loop）调度时间轴对比\nframe 场景对比：两段代码有什么区别？\n【写法 A：直接连续 await 协程对象】\nawait say_after(1, 'hello')  # 第 1 行\nawait say_after(2, 'world')  # 第 2 行\n\n【写法 B：先 create_task 登记任务，再 await】\ntask1 = asyncio.create_task(say_after(1, 'hello'))\ntask2 = asyncio.create_task(say_after(2, 'world'))\nawait task1\nawait task2\n请先预测：写法 A 和写法 B 在 t = 0s 时，事件循环的就绪队列里分别有几个任务？两者的总耗时分别是几秒？\npredict\nframe t = 0s 时刻：谁已经开始倒计时了？\n- 【写法 A（t=0s）】：执行第 1 行 `await say_after(1, 'hello')`，main 函数立即在原地挂起！此时代码根本还没走到第 2 行，`say_after(2, 'world')` 甚至还没被创建。事件循环里只有第 1 个任务在倒计时（剩余 1s）。\n- 【写法 B（t=0s）】：`create_task` 是非阻塞登记，瞬间把 `task1` 和 `task2` 全部排入事件循环就绪队列。当走到 `await task1` 让出主线程控制权时，事件循环在 t=0s 同时启动 `task1`（剩余 1s）和 `task2`（剩余 2s）！\nframe t = 1s 时刻：第 1 个任务到期唤醒\n- 【写法 A（t=1s）】：第 1 个任务休眠 1s 结束，打印 'hello'，main 恢复并往下走到第 2 行，此时才刚刚创建第 2 个协程并开始它的 2s 倒计时（预计 t=3s 结束）。\n- 【写法 B（t=1s）】：`task1` 休眠 1s 结束，打印 'hello'，`await task1` 完成并往下走到 `await task2`；而此时 `task2` 在后台已经倒计时了 1 秒，只剩最后 1 秒！\nframe t = 2s ~ 3s 时刻：最终耗时揭晓\n- 【写法 B 在 t=2.00s 全部完成】：`task2` 走完剩余 1 秒，打印 'world'，总耗时 max(1s, 2s) = 2.00s。\n- 【写法 A 在 t=3.00s 才完成】：第 2 个协程直到 t=3.00s 才走完它的 2 秒休眠，总耗时 1s + 2s = 3.00s。\n```"
+    },
+    {
+      "id": "node-choice-blocking",
+      "type": "text",
+      "x": 580,
+      "y": 460,
+      "width": 640,
+      "height": 340,
+      "text": "## 2. 排错诊断：为什么写了 `async def` + `gather` 跑 5 个任务还是花了 5.02 秒？\n\n回顾你的实验代码：外层已经用了 `await asyncio.gather(*(bad_worker(i) for i in range(5)))`，但 `bad_worker` 内部写的是 `time.sleep(1)` 或 `requests.get(url)`。\n\n当 Task-1 在 async def 内部执行到 time.sleep(1) 或 requests.get() 时，底层究竟发生了什么导致其余 4 个 Task 无法并发执行？\n- time.sleep(1) 和 requests.get() 是操作系统线程级的同步阻塞调用，直接让事件循环所在的唯一主线程原地休眠/卡死 1 秒，主线程控制权无法交还给事件循环去启动 Task-2 ~ Task-5\n- asyncio.gather 默认是按顺序一个接一个串行运行任务的，必须手动开启多线程池参数才能并发\n- async def 函数内部不能包含超过 3 个任务，否则 Python 全局解释器锁（GIL）会自动把协程退化为串行循环\n\n请在对话中给出选择及理由。"
+    },
+    {
+      "id": "node-blank-fix",
+      "type": "text",
+      "x": 580,
+      "y": 840,
+      "width": 640,
+      "height": 380,
+      "text": "## 3. 关键代码填空：将 5 秒假并发改造为 1 秒真并发\n\n请根据所学知识，补全以下两种将 5 个任务耗时从 `5.02s` 压缩至 `1.00s` 的标准修复方案：\n\n```python\nimport asyncio\nimport time\n\n# 方案一：使用原生异步非阻塞休眠（或 httpx.AsyncClient 异步网络请求），主动挂起协程并让出控制权\nasync def good_async_worker(task_id: int) -> str:\n    await __填空1__\n    return f\"task-{task_id} ok\"\n\n# 方案二：若必须调用无法改写的第三方同步阻塞函数 sync_io(task_id)，将其卸载到后台工作线程池\ndef sync_io(task_id: int) -> str:\n    time.sleep(1.0)\n    return f\"task-{task_id} ok\"\n\nasync def offload_worker(task_id: int) -> str:\n    return await __填空2__(sync_io, task_id)\n\n# 批量并发编排：使用 Python 3.11+ 结构化并发上下文管理器，确保任一任务报错时自动取消其余任务\nasync def main():\n    async with asyncio.__填空3__() as tg:\n        tasks = [tg.__填空4__(good_async_worker(i)) for i in range(1, 6)]\n```\n\n- 填空1：填写异步休眠 1 秒的调用表达式\n- 填空2：填写将同步函数卸载到工作线程的 asyncio API\n- 填空3：填写结构化并发任务组类名\n- 填空4：填写登记并发任务的方法名\n\n请在对话中提交补全后的代码。"
+    },
+    {
+      "id": "node-card-eventloop",
+      "type": "file",
+      "x": 0,
+      "y": 320,
+      "width": 520,
+      "height": 180,
+      "file": "卡片/事件循环EventLoop与await主动让出控制权机制.md"
+    },
+    {
+      "id": "node-card-task",
+      "type": "file",
+      "x": 0,
+      "y": 530,
+      "width": 520,
+      "height": 180,
+      "file": "卡片/直接await协程对象与create_task并发调度的区别.md"
+    },
+    {
+      "id": "node-card-case",
+      "type": "file",
+      "x": 0,
+      "y": 740,
+      "width": 520,
+      "height": 180,
+      "file": "卡片/案例-async函数内误用同步time.sleep与requests导致假并发的诊断与修复.md"
+    },
+    {
+      "id": "node-card-pattern",
+      "type": "file",
+      "x": 0,
+      "y": 950,
+      "width": 520,
+      "height": 180,
+      "file": "卡片/异步并发任务编排与阻塞操作卸载模式.md"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-1",
+      "fromNode": "node-overview",
+      "fromSide": "right",
+      "toNode": "node-frames-timeline",
+      "toSide": "left",
+      "label": "第一步：看清串行与并发时间轴"
+    },
+    {
+      "id": "edge-2",
+      "fromNode": "node-frames-timeline",
+      "fromSide": "bottom",
+      "toNode": "node-choice-blocking",
+      "toSide": "top",
+      "label": "第二步：诊断同步调用阻塞主线程"
+    },
+    {
+      "id": "edge-3",
+      "fromNode": "node-choice-blocking",
+      "fromSide": "bottom",
+      "toNode": "node-blank-fix",
+      "toSide": "top",
+      "label": "第三步：原生异步与线程卸载修复"
+    }
+  ]
+}

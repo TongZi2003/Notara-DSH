@@ -1,0 +1,51 @@
+{
+  "nodes": [
+    {
+      "id": "opening",
+      "type": "text",
+      "text": "## 定积分应用：先试一步\n\n先写小份贡献、单位与范围，再积分。白板是切片与模型的辅助核对；没有实验测量或预填作答，不需要PDF附件。",
+      "x": 0,
+      "y": 0,
+      "width": 440,
+      "height": 200
+    },
+    {
+      "id": "check",
+      "type": "text",
+      "text": "## 补一步\n\n```blank\n区域为0<=x<=1、x^2<=y<=x，绕y轴旋转。\n竖条形成的壳半径与壳高分别为 {{ 用x表示 }}\n体积微元为 {{ 包含dx并说明单位 }}\n若改用水平垫片，左右边界为 {{ 用y表示 }}\n两法结果应相同的依据是 {{ 区域与轴的核对 }}\n```",
+      "x": 0,
+      "y": 240,
+      "width": 440,
+      "height": 440,
+      "kind": "question"
+    },
+    {
+      "id": "compare",
+      "type": "text",
+      "text": "## 再核对一种关系\n\n```flow\ndirection right\nA[明确对象与积分范围] --> B{切片与旋转轴的关系}\nB -- 垂直轴 --> C[?]\nB -- 平行轴且不重复覆盖 --> D[?]\nC --> E[核对微元单位与边界]\nD --> E\n```",
+      "x": 480,
+      "y": 0,
+      "width": 620,
+      "height": 600,
+      "kind": "question"
+    },
+    {
+      "id": "source",
+      "type": "file",
+      "file": "07-例题-圆柱壳与同体核对.md",
+      "x": 480,
+      "y": 640,
+      "width": 620,
+      "height": 180
+    }
+  ],
+  "edges": [
+    {
+      "id": "back-to-card",
+      "fromNode": "source",
+      "toNode": "check",
+      "label": "回到完整题面核对",
+      "toEnd": "arrow"
+    }
+  ]
+}
