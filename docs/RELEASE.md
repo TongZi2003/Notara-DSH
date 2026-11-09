@@ -1,12 +1,14 @@
 # Notara DSH 0.1.2 候选发行
 
-当前已发布版本为 0.1.1；本轮准备 0.1.2 开源候选，尚未发布。本仓库从干净源码开始，不包含私有开发历史。
+npm 当前已发布版本为 0.1.1；本轮 0.1.2 尚未发布到 npm。GitHub 已公开当前源码，本仓库从干净源码开始，不包含私有开发历史。
+
+首次使用请从 [安装与启动](https://github.com/TongZi2003/Notara-DSH/blob/main/docs/INSTALL.md) 开始，再按 [第一次学习与日常用法](https://github.com/TongZi2003/Notara-DSH/blob/main/docs/USAGE.md) 跑通一次学习。本文主要面向发行维护与已有环境升级。
 
 七个功能包与一个 DSH 原生 bundle。第一方代码、提示词与原创素材采用 AGPL-3.0-only；第三方代码和字体按随包原许可分发。已移除三款 Anthropic 字体，改用系统字体。
 
-## GitHub Release 安装包
+## 本地生成的发行目录 / GitHub Release 安装包
 
-此发行是插件包，不是桌面安装器。需要 Node 24+、npm 和联网下载 DSH 依赖。
+此发行是插件包，不是桌面安装器。需要 Node 24+、npm 和联网下载 DSH 依赖。当前可先从源码运行 `npm run pack:plugins -- release/0.1.2` 生成发行目录；以下同样适用于以后上传的 Release 安装包，不表示 GitHub 已提供可下载资产。
 
 解压后先用 `shasum -a 256 -c SHA256SUMS` 校验，再运行：
 
@@ -70,7 +72,7 @@ node node_modules/@oh-my-student/dsh-bundle/host-adapter.mjs --host ./node_modul
 
 插件及安装脚本按跨平台设计，Windows 需要 Node 24+（含 npm）和上述固定 DSH 版本。安装脚本通过 Node 调用 npm-cli.js，避免直接执行 .cmd。可在 PowerShell 中执行 `node .\install-release.mjs "C:\Notara\profiles\web"`，目标目录必须为空。Windows 路径写入 JSON/YAML 时使用正确的引号或正斜杠。
 
-0.1.1 的空目录安装和浏览器验收运行于 macOS，0.1.2 安装包须重新验收；Windows 的安装、中文路径、PDF 与关闭重开尚未经过实机验证。
+macOS 有本地安装与浏览器验收记录，不代表 Windows 已验收；Windows 的安装、中文路径、PDF 与关闭重开尚未经过实机验证。每次准备上传的发行包仍需按冻结候选重新检查。
 
 ## 发布操作者
 
